@@ -1,49 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>For You ❤️</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Welcome | Our Chat App</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        font-family: 'Segoe UI', cursive, sans-serif;
+        background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        color: #4b2c2c;
+    }
+
+    .container {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.25);
+        padding: 50px 40px;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        animation: fadeIn 2s ease;
+        max-width: 500px;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+        margin-bottom: 10px;
+    }
+
+    .names {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 15px 0;
+        color: #b03060;
+    }
+
+    p {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-top: 15px;
+    }
+
+    .heart {
+        font-size: 2.5rem;
+        animation: pulse 1.5s infinite;
+        margin: 20px 0;
+    }
+
+    .loading {
+        margin-top: 25px;
+        font-style: italic;
+        opacity: 0.9;
+    }
+
+    .dots::after {
+        content: '';
+        animation: dots 2s steps(4, end) infinite;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.15); }
+        100% { transform: scale(1); }
+    }
+
+    @keyframes dots {
+        0% { content: ''; }
+        25% { content: '.'; }
+        50% { content: '..'; }
+        75% { content: '...'; }
+        100% { content: ''; }
+    }
+
+    .login-msg {
+        display: none;
+        margin-top: 20px;
+        font-weight: 500;
+        color: #6b1f3a;
+        animation: fadeIn 1.5s ease;
+    }
+</style>
 </head>
+
 <body>
 
-<!-- COUNTDOWN PAGE -->
-<div id="countdown-page" class="page">
-    <h1>Something beautiful is coming ✨</h1>
-    <div id="countdown">
-        <div><span id="days">0</span>Days</div>
-        <div><span id="hours">0</span>Hours</div>
-        <div><span id="minutes">0</span>Minutes</div>
-        <div><span id="seconds">0</span>Seconds</div>
+<div class="container">
+    <h1>Welcome to Our Chat App</h1>
+
+    <div class="names">Dear Fariha, I'm Hamzah</div>
+
+    <div class="heart">❤️</div>
+
+    <p>
+        A small digital space made specially for us —  
+        where words feel closer, moments last longer,  
+        and love types a little faster.
+    </p>
+
+    <div class="loading">
+        Preparing your private world<span class="dots"></span>
+    </div>
+
+    <div class="login-msg" id="loginMsg">
+        ✨ Login page will appear if something happens. ✨
     </div>
 </div>
 
-<!-- BIRTHDAY INTRO PAGE -->
-<div id="intro-page" class="page hidden">
-    <h1>🎉 Happy Birthday 🎉</h1>
-    <h2>To the love of my life ❤️</h2>
+<script>
+    setTimeout(() => {
+        document.getElementById("loginMsg").style.display = "block";
+    }, 4000);
+</script>
 
-   
-</div>
-
-<!-- TAB PAGES -->
-<div id="page-1" class="page hidden">💌 Page 1 – Our First Memory</div>
-<div id="page-2" class="page hidden">🌸 Page 2 – Why I Love You</div>
-<div id="page-3" class="page hidden">✨ Page 3 – Your Smile</div>
-<div id="page-4" class="page hidden">🌍 Page 4 – Our Adventures</div>
-<div id="page-5" class="page hidden">🎶 Page 5 – Our Song</div>
-<div id="page-6" class="page hidden">📸 Page 6 – Favorite Moments</div>
-<div id="page-7" class="page hidden">💫 Page 7 – Dreams Together</div>
-<div id="page-8" class="page hidden">🔥 Page 8 – What You Mean to Me</div>
-<div id="page-9" class="page hidden">💍 Page 9 – The Future</div>
-<div id="page-10" class="page hidden">❤️ Page 10 – Forever</div>
-
-<!-- NAVIGATION -->
-<div id="navigation" class="nav-buttons hidden">
-    <button onclick="prevPage()">⬅</button>
-    <button onclick="nextPage()">➡</button>
-</div>
-
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
