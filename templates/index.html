@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>For You ❤️</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<!-- COUNTDOWN PAGE -->
+<div id="countdown-page" class="page">
+    <h1>Something beautiful is coming ✨</h1>
+    <div id="countdown">
+        <div><span id="days">0</span>Days</div>
+        <div><span id="hours">0</span>Hours</div>
+        <div><span id="minutes">0</span>Minutes</div>
+        <div><span id="seconds">0</span>Seconds</div>
+    </div>
+</div>
+
+<!-- BIRTHDAY INTRO PAGE -->
+<div id="intro-page" class="page hidden">
+    <h1>🎉 Happy Birthday 🎉</h1>
+    <h2>To the love of my life ❤️</h2>
+
+   
+</div>
+
+<!-- TAB PAGES -->
+<div id="page-1" class="page hidden">💌 Page 1 – Our First Memory</div>
+<div id="page-2" class="page hidden">🌸 Page 2 – Why I Love You</div>
+<div id="page-3" class="page hidden">✨ Page 3 – Your Smile</div>
+<div id="page-4" class="page hidden">🌍 Page 4 – Our Adventures</div>
+<div id="page-5" class="page hidden">🎶 Page 5 – Our Song</div>
+<div id="page-6" class="page hidden">📸 Page 6 – Favorite Moments</div>
+<div id="page-7" class="page hidden">💫 Page 7 – Dreams Together</div>
+<div id="page-8" class="page hidden">🔥 Page 8 – What You Mean to Me</div>
+<div id="page-9" class="page hidden">💍 Page 9 – The Future</div>
+<div id="page-10" class="page hidden">❤️ Page 10 – Forever</div>
+
+<!-- NAVIGATION -->
+<div id="navigation" class="nav-buttons hidden">
+    <button onclick="prevPage()">⬅</button>
+    <button onclick="nextPage()">➡</button>
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
