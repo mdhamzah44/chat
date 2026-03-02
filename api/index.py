@@ -8,24 +8,18 @@ from datetime import datetime
 app = Flask(__name__, template_folder="../templates", static_folder="../static")
 CORS(app)
 
-MONGO_URI = os.environ.get("MONGO_URI")
+# ---------------- DATABASE ----------------
+
+MONGO_URI = os.environ.get("MONGODB_URI")
 
 if not MONGO_URI:
-    raise Exception("MONGO_URI not set in environment variables")
+    raise Exception("MONGODB_URI not set in environment variables")
 
 client = MongoClient(MONGO_URI)
-db = client.chatapp
+db = client["chatapp"]   # your database name
 
-users = db.users
-messages = db.messages
-
-
-app = Flask(
-    __name__,
-    template_folder="../templates",
-    static_folder="../static"
-)
-
+users = db["users"]
+messages = db["messages"]
 
 # ---------------- PAGES ----------------
 
@@ -40,7 +34,6 @@ def home():
 @app.route("/chat")
 def chat():
     return render_template("chat.html")
-
 
 # ---------------- AUTH ----------------
 
@@ -78,14 +71,12 @@ def login():
     else:
         return jsonify({"error": "Invalid credentials"}), 400
 
-
 # ---------------- USERS ----------------
 
 @app.route("/api/users")
 def get_users():
     all_users = list(users.find({}, {"_id": 0, "password": 0}))
     return jsonify(all_users)
-
 
 # ---------------- CHAT ----------------
 
@@ -102,7 +93,6 @@ def send_message():
 
     return jsonify({"message": "Sent"})
 
-
 @app.route("/api/messages", methods=["POST"])
 def get_messages():
     data = request.json
@@ -117,4 +107,3 @@ def get_messages():
     }, {"_id": 0}).sort("timestamp", 1))
 
     return jsonify(chat)
-
