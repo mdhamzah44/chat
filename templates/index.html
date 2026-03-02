@@ -1,127 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Welcome | Our Chat App</title>
-
-<style>
-    body {
-        margin: 0;
-        height: 100vh;
-        font-family: 'Segoe UI', cursive, sans-serif;
-        background: linear-gradient(135deg, #ffdde1, #ee9ca7);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        color: #4b2c2c;
-    }
-
-    .container {
-        text-align: center;
-        background: rgba(255, 255, 255, 0.25);
-        padding: 50px 40px;
-        border-radius: 20px;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        animation: fadeIn 2s ease;
-        max-width: 500px;
-    }
-
-    h1 {
-        font-size: 2.2rem;
-        margin-bottom: 10px;
-    }
-
-    .names {
-        font-size: 1.5rem;
-        font-weight: 600;
-        margin: 15px 0;
-        color: #b03060;
-    }
-
-    p {
-        font-size: 1rem;
-        line-height: 1.6;
-        margin-top: 15px;
-    }
-
-    .heart {
-        font-size: 2.5rem;
-        animation: pulse 1.5s infinite;
-        margin: 20px 0;
-    }
-
-    .loading {
-        margin-top: 25px;
-        font-style: italic;
-        opacity: 0.9;
-    }
-
-    .dots::after {
-        content: '';
-        animation: dots 2s steps(4, end) infinite;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.15); }
-        100% { transform: scale(1); }
-    }
-
-    @keyframes dots {
-        0% { content: ''; }
-        25% { content: '.'; }
-        50% { content: '..'; }
-        75% { content: '...'; }
-        100% { content: ''; }
-    }
-
-    .login-msg {
-        display: none;
-        margin-top: 20px;
-        font-weight: 500;
-        color: #6b1f3a;
-        animation: fadeIn 1.5s ease;
-    }
-</style>
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+  <div class="container">
+    <h2>Login</h2>
+    <input id="username" placeholder="Username">
+    <input id="password" type="password" placeholder="Password">
+    <button onclick="login()">Login</button>
 
-<div class="container">
-    <h1>Welcome to Our Chat App</h1>
+    <h3>OR</h3>
 
-    <div class="names">Dear Fariha, I'm Hamzah</div>
+    <button onclick="signup()">Signup</button>
+  </div>
 
-    <div class="heart">❤️</div>
-
-    <p>
-        A small digital space made specially for us —  
-        where words feel closer, moments last longer,  
-        and love types a little faster.
-    </p>
-
-    <div class="loading">
-        Preparing your private world<span class="dots"></span>
-    </div>
-
-    <div class="login-msg" id="loginMsg">
-        ✨ Login page will appear if something happens. ✨
-    </div>
-</div>
-
-<script>
-    setTimeout(() => {
-        document.getElementById("loginMsg").style.display = "block";
-    }, 4000);
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
