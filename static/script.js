@@ -107,22 +107,39 @@ if (window.location.pathname.includes("chat")) {
   const chatWith = localStorage.getItem("chatWith");
   document.getElementById("chatWith").innerText = chatWith;
 
-  function loadMessages(){
-    fetch(API + "/messages", {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({user1: user, user2: chatWith})
-    })
-    .then(res => res.json())
-    .then(messages => {
-      const box = document.getElementById("messages");
-      box.innerHTML = "";
-      messages.forEach(m => {
-        box.innerHTML += `<p><b>${m.sender}:</b> ${m.text}</p>`;
-      });
-      box.scrollTop = box.scrollHeight;
+function loadMessages(){
+  fetch(API + "/messages", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({user1: user, user2: chatWith})
+  })
+  .then(res => res.json())
+  .then(messages => {
+
+    const box = document.getElementById("messages");
+    box.innerHTML = "";
+
+    messages.forEach(m => {
+      const div = document.createElement("div");
+      div.classList.add("message");
+
+      if(m.sender === user){
+        div.classList.add("sent");
+      } else {
+        div.classList.add("received");
+      }
+
+      div.innerHTML = `<b>${m.sender}:</b> ${m.text}`;
+      box.appendChild(div);
     });
-  }
+
+    // 🔥 Scroll AFTER rendering
+    setTimeout(() => {
+      box.scrollTop = box.scrollHeight;
+    }, 50);
+
+  });
+}
 
   window.sendMessage = function(){
     const msg = document.getElementById("messageInput").value;
