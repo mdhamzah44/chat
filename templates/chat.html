@@ -7,6 +7,15 @@
 </head>
 <body class="bg-light d-flex flex-column vh-100">
 
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+  <div class="container">
+    <a class="navbar-brand" href="#">Chat App</a>
+    <div class="ms-auto">
+      <button class="btn btn-outline-danger" id="logoutBtn">Logout</button>
+    </div>
+  </div>
+</nav>
+
 <div class="container-fluid d-flex flex-column h-100 py-3">
   <h3 id="chatWith" class="text-center mb-3"></h3>
 
@@ -20,13 +29,26 @@
 
 <script src="{{ url_for('static', filename='script.js') }}"></script>
 <script>
-const input = document.getElementById("messageInput");
-input.addEventListener("keypress", function(event) {
-  if(event.key === "Enter") {
-    event.preventDefault();
-    sendMessage();
+  // Redirect if not logged in
+  if (!localStorage.getItem("user")) {
+    window.location = "/";
   }
-});
+
+  // Logout
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("chatWith");
+    window.location = "/";
+  });
+
+  // Press Enter to send message
+  const input = document.getElementById("messageInput");
+  input.addEventListener("keypress", function(event) {
+    if(event.key === "Enter") {
+      event.preventDefault();
+      sendMessage();
+    }
+  });
 </script>
 </body>
 </html>
