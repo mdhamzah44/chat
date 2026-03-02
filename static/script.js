@@ -37,6 +37,31 @@ function signup() {
 }
 
 function login() {
+
+
+    // Get input values and trim spaces
+  const usernameValue = username.value.trim();
+  const passwordValue = password.value.trim();
+
+  // Get or create error message container
+  let errorDiv = document.getElementById("loginError");
+  if (!errorDiv) {
+    errorDiv = document.createElement("div");
+    errorDiv.id = "loginError";
+    errorDiv.className = "text-danger mb-2";
+    username.parentNode.insertBefore(errorDiv, username.nextSibling);
+  }
+
+  // Clear previous error
+  errorDiv.textContent = "";
+
+  // Validate inputs
+  if (!usernameValue || !passwordValue) {
+    errorDiv.textContent = "Username and password cannot be blank.";
+    return;
+  }
+
+  
   fetch(API + "/login", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
