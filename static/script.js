@@ -129,7 +129,7 @@ function loadMessages(){
         div.classList.add("received");
       }
 
-      div.innerHTML = `<b>${m.sender}:</b> ${m.text}`;
+      div.innerHTML = `${m.text}`;
       box.appendChild(div);
     });
 
