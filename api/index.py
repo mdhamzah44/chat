@@ -10,7 +10,7 @@ app = Flask(__name__, template_folder="../templates", static_folder="../static")
 CORS(app)
 
 # ---------------- DATABASE ----------------
-MONGO_URI = os.environ.get("MONGODB_URI")
+MONGO_URI = os.environ.get("chatapp_MONGODB_URI")
 if not MONGO_URI:
     raise Exception("MONGODB_URI not set in environment variables")
 
