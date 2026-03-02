@@ -1,7 +1,8 @@
 const API = "/api";
 
 function signup() {
-  // Get input values
+
+    // Get input values
   const usernameValue = username.value.trim();
   const passwordValue = password.value.trim();
 
@@ -22,29 +23,16 @@ function signup() {
     errorDiv.textContent = "Username and password cannot be blank.";
     return;
   }
-
-  // Make API call
+  
   fetch(API + "/signup", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
-      username: usernameValue,
-      password: passwordValue
+      username: username.value,
+      password: password.value
     })
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.error) {
-      errorDiv.textContent = data.error;
-    } else {
-      errorDiv.textContent = "";
-      // Optionally redirect to login or home
-      window.location = "home";
-    }
-  })
-  .catch(err => {
-    errorDiv.textContent = "Something went wrong. Try again.";
-    console.error(err);
+  }).then(res => res.json()).then(data => {
+    alert(data.message || data.error);
   });
 }
 
