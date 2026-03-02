@@ -167,6 +167,18 @@ body{
     font-size:13px;
   }
 }
+
+  .page1{
+            display: block;   /* visible on load */
+            padding: 20px;
+            background: lightblue;
+        }
+
+        .page2{
+            display: none;    /* hidden initially */
+            padding: 20px;
+            background: lightgreen;
+        }
 </style>
 </head>
 
@@ -177,10 +189,10 @@ if(!localStorage.getItem("user")){
   window.location = "/";
 }
 </script>
-
+ <div class="page1" id="div1">
 <!-- Navbar -->
 <div class="navbar">
-  <a href="home">Chat App</a>
+  <a href="#" id="website">Chat App</a>
   <button class="logout-btn" id="logoutBtn">Logout</button>
 </div>
 
@@ -196,6 +208,20 @@ if(!localStorage.getItem("user")){
     </div>
   </div>
 </div>
+</div>
+
+<div class="page2" id="div2">
+        Shows when clicked Chat App
+    </div>
+
+     <script>
+        document.getElementById("website").addEventListener("click", function(e){
+            e.preventDefault(); // stop page refresh
+
+            document.getElementById("div1").style.display = "none";
+            document.getElementById("div2").style.display = "block";
+        });
+    </script>
 
 <script src="{{ url_for('static', filename='script.js') }}"></script>
 
