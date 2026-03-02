@@ -157,6 +157,7 @@ body{
 
 /* Page 2 Styling */
 .page2-content{
+   background:#f1f2f4;
   flex:1;
   display:flex;
   justify-content:center;
@@ -353,12 +354,8 @@ if(!localStorage.getItem("user")){
 
 <!-- PAGE 2 -->
 <div class="page" id="page2">
-  <div class="navbar">
-    <a href="#" id="backBtn">← Back to Chat</a>
-  </div>
-
  <div class="topbar">
-    <div class="brand-name">Flipkart</div>
+    <div class="brand-name" id="backBtn">Flipkart</div>
 
     <div class="search-area">
         <input type="text" placeholder="Search for products, brands and more">
