@@ -6,7 +6,11 @@ import os
 from datetime import datetime
 
 # ---------------- FLASK APP ----------------
-app = Flask(__name__, template_folder="../templates", static_folder="../static")
+app = Flask(
+    __name__,
+    template_folder="../templates",
+    static_folder="../static"
+)
 CORS(app)
 
 # ---------------- DATABASE ----------------
