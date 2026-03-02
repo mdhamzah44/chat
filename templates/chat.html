@@ -2,16 +2,31 @@
 <html>
 <head>
   <title>Chat</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
-
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
-   <h2 id="chatWith"></h2>
-  <div id="messages"></div>
-  <input id="messageInput" placeholder="Type message">
-  <button onclick="sendMessage()">Send</button>
+<body class="bg-light d-flex flex-column vh-100">
 
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<div class="container-fluid d-flex flex-column h-100 py-3">
+  <h3 id="chatWith" class="text-center mb-3"></h3>
+
+  <div id="messages" class="flex-grow-1 overflow-auto border rounded p-3 mb-3 bg-white"></div>
+
+  <div class="input-group">
+    <input id="messageInput" type="text" class="form-control" placeholder="Type a message">
+    <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+<script>
+const input = document.getElementById("messageInput");
+input.addEventListener("keypress", function(event) {
+  if(event.key === "Enter") {
+    event.preventDefault();
+    sendMessage();
+  }
+});
+</script>
 </body>
 </html>
