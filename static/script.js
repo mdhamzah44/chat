@@ -7,11 +7,6 @@ function signup() {
   const passwordValue = password.value.trim();
   const errorDiv = document.getElementById("errors");
 
-  if (!usernameValue || !passwordValue) {
-    errorDiv.textContent = "Username and password required";
-    return;
-  }
-
   fetch(API + "/signup", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
@@ -163,17 +158,17 @@ if (window.location.pathname.includes("chat")) {
     });
   }
 
-  // heartbeat
+  // 🔥 HEARTBEAT every 2 seconds
   setInterval(() => {
     fetch(API + "/heartbeat", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({ username: user })
     });
-  }, 5000);
+  }, 2000);
 
   loadMessages();
   loadStatus();
-  setInterval(loadMessages, 1000);
-  setInterval(loadStatus, 3000);
+  setInterval(loadMessages, 200);
+  setInterval(loadStatus, 2000);
 }

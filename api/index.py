@@ -3,7 +3,7 @@ from flask_cors import CORS
 from pymongo import MongoClient
 import bcrypt
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 
 app = Flask(
     __name__,
@@ -50,7 +50,6 @@ def signup():
     users.insert_one({
         "username": username,
         "password": hashed,
-        "online": False,
         "last_seen": datetime.utcnow()
     })
 
@@ -69,44 +68,43 @@ def login():
     if bcrypt.checkpw(password.encode(), user["password"]):
         users.update_one(
             {"username": username},
-            {"$set": {"online": True, "last_seen": datetime.utcnow()}}
+            {"$set": {"last_seen": datetime.utcnow()}}
         )
         return jsonify({"message": "Login success"})
     else:
         return jsonify({"error": "Invalid credentials"}), 400
 
-@app.route("/api/logout", methods=["POST"])
-def logout():
-    data = request.json
-    users.update_one(
-        {"username": data["username"]},
-        {"$set": {"online": False, "last_seen": datetime.utcnow()}}
-    )
-    return jsonify({"message": "Logged out"})
-
+# ---------------- HEARTBEAT ----------------
 @app.route("/api/heartbeat", methods=["POST"])
 def heartbeat():
     data = request.json
     users.update_one(
         {"username": data["username"]},
-        {"$set": {"online": True, "last_seen": datetime.utcnow()}}
+        {"$set": {"last_seen": datetime.utcnow()}}
     )
     return jsonify({"message": "Updated"})
 
+# ---------------- STATUS ----------------
 @app.route("/api/status/<username>")
 def get_status(username):
     user = users.find_one(
         {"username": username},
-        {"_id": 0, "online": 1, "last_seen": 1}
+        {"_id": 0, "last_seen": 1}
     )
 
     if not user:
         return jsonify({"error": "Not found"}), 404
 
-    return jsonify({
-        "online": user.get("online", False),
-        "last_seen": user.get("last_seen")
-    })
+    last_seen = user.get("last_seen")
+    now = datetime.utcnow()
+
+    if last_seen and (now - last_seen) < timedelta(seconds=3):
+        return jsonify({"online": True})
+    else:
+        return jsonify({
+            "online": False,
+            "last_seen": last_seen
+        })
 
 # ---------------- USERS ----------------
 @app.route("/api/users")
