@@ -1,161 +1,219 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Chat</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <style>
-    /* Base styles */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f8f9fa;
-  margin: 0;
-  padding: 0;
-  font-size: 1rem; /* base font */
+<title>Chat</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI', sans-serif;
 }
 
-h2, h3 {
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 0.75rem;
+body{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color:white;
 }
 
-/* Users list */
-ul#users li {
-  cursor: pointer;
-  padding: 0.75rem 1rem;
-  margin-bottom: 0.5rem;
-  background-color: #fff;
-  border-radius: 0.5rem;
-  border: 1px solid #dee2e6;
-  font-size: 1rem;
-  transition: background-color 0.2s;
-}
-ul#users li:hover {
-  background-color: #e9ecef;
+/* Navbar */
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 30px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
 
-/* Chat container */
-#messages {
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  padding: 1rem;
-  background-color: #ffffff;
-  border-radius: 0.75rem;
-  border: 1px solid #dee2e6;
+.navbar a{
+  text-decoration:none;
+  color:white;
+  font-size:20px;
+  font-weight:600;
 }
 
-/* Chat bubble */
-.message {
-  max-width: 80%;
-  padding: 0.7rem 1rem;
-  margin: 0.5rem 0;
-  border-radius: 1rem;
-  word-wrap: break-word;
-  font-size: 1rem;
-}
-.message.sent {
-  align-self: flex-end;
-  background-color: #0d6efd;
-  color: white;
-  border-bottom-right-radius: 0.5rem;
-}
-.message.received {
-  align-self: flex-start;
-  background-color: #e9ecef;
-  color: black;
-  border-bottom-left-radius: 0.5rem;
+.logout-btn{
+  padding:8px 15px;
+  border-radius:8px;
+  border:2px solid white;
+  background:transparent;
+  color:white;
+  cursor:pointer;
+  transition:0.3s;
 }
 
-/* Message Input */
-.input-group input {
-  padding: 0.75rem;
-  font-size: 1rem;
+.logout-btn:hover{
+  background:white;
+  color:#764ba2;
 }
 
-/* Buttons */
-.btn {
-  font-size: 1rem;
-  padding: 0.6rem 1rem;
+/* Chat Container */
+.chat-container{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  padding:20px;
 }
 
-/* Responsive rules for mobile screens */
-@media (max-width: 576px) {
+.chat-card{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(15px);
+  border-radius:20px;
+  padding:20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
 
-  body {
-    font-size: 1.1rem; /* slightly bigger on phones */
+#chatWith{
+  text-align:center;
+  margin-bottom:15px;
+  font-size:22px;
+}
+
+/* Messages Area */
+#messages{
+  flex:1;
+  overflow-y:auto;
+  padding:10px;
+  display:flex;
+  flex-direction:column;
+}
+
+/* Chat Bubble */
+.message{
+  max-width:75%;
+  padding:10px 15px;
+  margin:8px 0;
+  border-radius:15px;
+  font-size:14px;
+  word-wrap:break-word;
+  animation:fadeIn 0.3s ease;
+}
+
+.message.sent{
+  align-self:flex-end;
+  background:white;
+  color:#764ba2;
+  border-bottom-right-radius:5px;
+}
+
+.message.received{
+  align-self:flex-start;
+  background:rgba(255,255,255,0.3);
+  color:white;
+  border-bottom-left-radius:5px;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(5px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* Input Section */
+.input-group{
+  display:flex;
+  margin-top:15px;
+}
+
+#messageInput{
+  flex:1;
+  padding:12px;
+  border:none;
+  border-radius:10px 0 0 10px;
+  outline:none;
+  font-size:14px;
+}
+
+.send-btn{
+  padding:12px 20px;
+  border:none;
+  border-radius:0 10px 10px 0;
+  background:white;
+  color:#764ba2;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.send-btn:hover{
+  background:#ddd;
+}
+
+/* Responsive */
+@media(max-width:480px){
+  .navbar{
+    padding:12px 15px;
   }
 
-  h2, h3 {
-    font-size: 1.4rem;
+  .chat-card{
+    padding:15px;
   }
 
-  ul#users li {
-    font-size: 1rem;
-    padding: 0.85rem 1rem;
+  #chatWith{
+    font-size:18px;
   }
 
-  .message {
-    font-size: 1rem;
-    padding: 0.85rem 1.1rem;
-  }
-
-  .input-group input {
-    font-size: 1rem;
-    padding: 0.85rem;
-  }
-
-  .btn {
-    font-size: 1rem;
-    padding: 0.75rem 1rem;
+  .message{
+    font-size:13px;
   }
 }
-  </style>
+</style>
 </head>
-<body class="bg-light d-flex flex-column vh-100">
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-  <div class="container">
-    <a class="navbar-brand" href="home">Chat App</a>
-    <div class="ms-auto">
-      <button class="btn btn-outline-danger btn-sm" id="logoutBtn">Logout</button>
+<body>
+
+<script>
+if(!localStorage.getItem("user")){
+  window.location = "/";
+}
+</script>
+
+<!-- Navbar -->
+<div class="navbar">
+  <a href="home">Chat App</a>
+  <button class="logout-btn" id="logoutBtn">Logout</button>
+</div>
+
+<!-- Chat Area -->
+<div class="chat-container">
+  <div class="chat-card">
+    <h3 id="chatWith"></h3>
+    <div id="messages"></div>
+
+    <div class="input-group">
+      <input id="messageInput" type="text" placeholder="Type a message...">
+      <button class="send-btn" onclick="sendMessage()">Send</button>
     </div>
-  </div>
-</nav>
-
-<div class="container-fluid d-flex flex-column flex-grow-1 py-2">
-  <h3 id="chatWith" class="text-center mb-2"></h3>
-  <div id="messages" class="flex-grow-1 overflow-auto border rounded p-3 bg-white mb-2"></div>
-  <div class="input-group">
-    <input id="messageInput" type="text" class="form-control" placeholder="Type a message">
-    <button class="btn btn-primary" onclick="sendMessage()">Send</button>
   </div>
 </div>
 
 <script src="{{ url_for('static', filename='script.js') }}"></script>
+
 <script>
-  // Redirect to login if not logged in
-  if(!localStorage.getItem("user")){
-    window.location = "/";
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  localStorage.removeItem("user");
+  localStorage.removeItem("chatWith");
+  window.location = "/";
+});
+
+const input = document.getElementById("messageInput");
+input.addEventListener("keypress", function(event){
+  if(event.key === "Enter"){
+    event.preventDefault();
+    sendMessage();
   }
-
-  // Logout
-  document.getElementById("logoutBtn").addEventListener("click", () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("chatWith");
-    window.location = "/";
-  });
-
-  // Press Enter to send message
-  const input = document.getElementById("messageInput");
-  input.addEventListener("keypress", function(event){
-    if(event.key === "Enter"){
-      event.preventDefault();
-      sendMessage();
-    }
-  });
+});
 </script>
+
 </body>
 </html>
