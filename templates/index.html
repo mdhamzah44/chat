@@ -91,19 +91,18 @@
     }
   /* Red error text */
 .text-danger {
-  color: #fc8a96;
-  background: rgba(255, 0, 0, 0.5);   /* Bootstrap-like red */
-  font-size: 14px;
+  color: #fc8a96;   /* Bootstrap-like red */
+  font-size: 18px;
 }
 #errors {
-  min-height: 18px;   /* Prevent layout jump */
+  min-height: 22px;   /* Prevent layout jump */
   transition: 0.3s ease;
 }
 
 /* Green success text (optional, if you use it) */
 .text-success {
-  color: #28a745;   /* Bootstrap-like green */
-  font-size: 14px;
+  color: #a6ffbb;   /* Bootstrap-like green */
+  font-size: 18px;
 }
 
 /* Margin bottom spacing */
@@ -143,7 +142,7 @@
 
   <hr>
 
-  <button class="btn btn-success" onclick="signup()">Create Account</button>
+ <!-- <button class="btn btn-success" onclick="signup()">Create Account</button> --> 
 </div>
 
 <script src="{{ url_for('static', filename='script.js') }}"></script>
