@@ -1,28 +1,15 @@
 const API = "/api";
 
-
-
 let lastMessageCount = 0;
 
 function signup() {
 
-    // Get input values
   const usernameValue = username.value.trim();
   const passwordValue = password.value.trim();
 
-  // Get or create error message container
-  let errorDiv = document.getElementById("signupError");
-  if (!errorDiv) {
-    errorDiv = document.createElement("div");
-    errorDiv.id = "signupError";
-    errorDiv.className = "text-danger mb-2";
-    username.parentNode.insertBefore(errorDiv, username.nextSibling);
-  }
+  const errorDiv = document.getElementById("errors");
+  errorDiv.textContent = ""; // Clear previous message
 
-  // Clear previous error
-  errorDiv.textContent = "";
-
-  // Validate inputs
   if (!usernameValue || !passwordValue) {
     errorDiv.textContent = "Username and password cannot be blank.";
     return;
@@ -32,56 +19,58 @@ function signup() {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
-      username: username.value,
-      password: password.value
+      username: usernameValue,
+      password: passwordValue
     })
-  }).then(res => res.json()).then(data => {
-    alert(data.message || data.error);
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.message) {
+      errorDiv.classList.remove("text-danger");
+      errorDiv.classList.add("text-success");
+      errorDiv.textContent = data.message;
+    } else {
+      errorDiv.classList.remove("text-success");
+      errorDiv.classList.add("text-danger");
+      errorDiv.textContent = data.error;
+    }
   });
 }
 
 function login() {
 
-
-    // Get input values and trim spaces
   const usernameValue = username.value.trim();
   const passwordValue = password.value.trim();
 
-  // Get or create error message container
-  let errorDiv = document.getElementById("loginError");
-  if (!errorDiv) {
-    errorDiv = document.createElement("div");
-    errorDiv.id = "loginError";
-    errorDiv.className = "text-danger mb-2";
-    username.parentNode.insertBefore(errorDiv, username.nextSibling);
-  }
+  const errorDiv = document.getElementById("errors");
+  errorDiv.textContent = ""; // Clear previous message
 
-  // Clear previous error
-  errorDiv.textContent = "";
-
-  // Validate inputs
   if (!usernameValue || !passwordValue) {
     errorDiv.textContent = "Username and password cannot be blank.";
     return;
   }
 
-  
   fetch(API + "/login", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
-      username: username.value,
-      password: password.value
+      username: usernameValue,
+      password: passwordValue
     })
-  }).then(res => res.json()).then(data => {
-    if(data.message){
-      localStorage.setItem("user", username.value);
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.message) {
+      localStorage.setItem("user", usernameValue);
       window.location = "home";
     } else {
-      alert(data.error);
+      errorDiv.classList.remove("text-success");
+      errorDiv.classList.add("text-danger");
+      errorDiv.textContent = data.error;
     }
   });
 }
+
 
 // ----------------- HOME -----------------
 if (window.location.pathname.includes("home")) {

@@ -89,6 +89,26 @@
       border:1px solid rgba(255,255,255,0.4);
       margin:20px 0;
     }
+  /* Red error text */
+.text-danger {
+  color: #dc3545;   /* Bootstrap-like red */
+  font-size: 14px;
+}
+#errors {
+  min-height: 18px;   /* Prevent layout jump */
+  transition: 0.3s ease;
+}
+
+/* Green success text (optional, if you use it) */
+.text-success {
+  color: #28a745;   /* Bootstrap-like green */
+  font-size: 14px;
+}
+
+/* Margin bottom spacing */
+.mb-2 {
+  margin-bottom: 8px;
+}
 
     /* Responsive */
     @media(max-width:480px){
@@ -113,6 +133,7 @@
 
 <div class="login-card">
   <h3>Chat Login</h3>
+<div id="errors" class="text-danger mb-2"></div>
 
   <input id="username" class="form-control" placeholder="Username">
   <input id="password" type="password" class="form-control" placeholder="Password">
