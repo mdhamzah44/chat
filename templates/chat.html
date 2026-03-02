@@ -16,10 +16,19 @@
 
 body{
   min-height:100vh;
-  display:flex;
-  flex-direction:column;
   background: linear-gradient(135deg, #667eea, #764ba2);
-  color:rgb(34, 34, 34);
+  color:white;
+}
+
+/* Pages */
+.page{
+  min-height:100vh;
+  display:none;
+  flex-direction:column;
+}
+
+.page.active{
+  display:flex;
 }
 
 /* Navbar */
@@ -80,7 +89,7 @@ body{
   font-size:22px;
 }
 
-/* Messages Area */
+/* Messages */
 #messages{
   flex:1;
   overflow-y:auto;
@@ -89,14 +98,12 @@ body{
   flex-direction:column;
 }
 
-/* Chat Bubble */
 .message{
   max-width:75%;
   padding:10px 15px;
   margin:8px 0;
   border-radius:15px;
   font-size:14px;
-  word-wrap:break-word;
   animation:fadeIn 0.3s ease;
 }
 
@@ -119,7 +126,7 @@ body{
   to{opacity:1; transform:translateY(0);}
 }
 
-/* Input Section */
+/* Input */
 .input-group{
   display:flex;
   margin-top:15px;
@@ -131,7 +138,6 @@ body{
   border:none;
   border-radius:10px 0 0 10px;
   outline:none;
-  font-size:14px;
 }
 
 .send-btn{
@@ -149,37 +155,25 @@ body{
   background:#ddd;
 }
 
+/* Page 2 Styling */
+.page2-content{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:28px;
+  font-weight:600;
+}
+
 /* Responsive */
 @media(max-width:480px){
   .navbar{
     padding:12px 15px;
   }
-
   .chat-card{
     padding:15px;
   }
-
-  #chatWith{
-    font-size:18px;
-  }
-
-  .message{
-    font-size:13px;
-  }
 }
-
-  .page1{
-            display: block;   /* visible on load */
-            min-height:100vh;
-  flex-direction:column;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color:rgb(34, 34, 34);
-           
-        }
-
-        .page2{
-            display: none;    /* hidden initially */
-        }
 </style>
 </head>
 
@@ -190,39 +184,37 @@ if(!localStorage.getItem("user")){
   window.location = "/";
 }
 </script>
- <div class="page1" id="div1">
-<!-- Navbar -->
-<div class="navbar">
-  <a href="#" id="website">Chat App</a>
-  <button class="logout-btn" id="logoutBtn">Logout</button>
-</div>
 
-<!-- Chat Area -->
-<div class="chat-container">
-  <div class="chat-card">
-    <h3 id="chatWith"></h3>
-    <div id="messages"></div>
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+  <div class="navbar">
+    <a href="#" id="website">Chat App</a>
+    <button class="logout-btn" id="logoutBtn">Logout</button>
+  </div>
 
-    <div class="input-group">
-      <input id="messageInput" type="text" placeholder="Type a message...">
-      <button class="send-btn" onclick="sendMessage()">Send</button>
+  <div class="chat-container">
+    <div class="chat-card">
+      <h3 id="chatWith"></h3>
+      <div id="messages"></div>
+
+      <div class="input-group">
+        <input id="messageInput" type="text" placeholder="Type a message...">
+        <button class="send-btn" onclick="sendMessage()">Send</button>
+      </div>
     </div>
   </div>
 </div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+  <div class="navbar">
+    <a href="#" id="backBtn">← Back to Chat</a>
+  </div>
+
+  <div class="page2-content">
+    This is Page 2
+  </div>
 </div>
-
-<div class="page2" id="div2">
-        Shows when clicked Chat App
-    </div>
-
-     <script>
-        document.getElementById("website").addEventListener("click", function(e){
-            e.preventDefault(); // stop page refresh
-
-            document.getElementById("div1").style.display = "none";
-            document.getElementById("div2").style.display = "block";
-        });
-    </script>
 
 <script src="{{ url_for('static', filename='script.js') }}"></script>
 
@@ -231,6 +223,18 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
   localStorage.removeItem("user");
   localStorage.removeItem("chatWith");
   window.location = "/";
+});
+
+document.getElementById("website").addEventListener("click", function(e){
+  e.preventDefault();
+  document.getElementById("page1").classList.remove("active");
+  document.getElementById("page2").classList.add("active");
+});
+
+document.getElementById("backBtn").addEventListener("click", function(e){
+  e.preventDefault();
+  document.getElementById("page2").classList.remove("active");
+  document.getElementById("page1").classList.add("active");
 });
 
 const input = document.getElementById("messageInput");
