@@ -3,7 +3,7 @@
 <head>
   <title>Chat</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<script src="{{ url_for('static', filename='script.js') }}"></script>
+
 </head>
 <body>
   <h2 id="chatWith"></h2>
@@ -13,6 +13,6 @@
   <input id="messageInput" placeholder="Type message">
   <button onclick="sendMessage()">Send</button>
 
-
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
