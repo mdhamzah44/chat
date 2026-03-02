@@ -11,13 +11,13 @@
   <div class="container">
     <a class="navbar-brand" href="#">Chat App</a>
     <div class="ms-auto">
-      <button class="btn btn-outline-danger" id="logoutBtn">Logout</button>
+      <button class="btn btn-outline-danger btn-sm" id="logoutBtn">Logout</button>
     </div>
   </div>
 </nav>
 
-<div class="container py-5">
-  <h2 class="mb-4 text-center">Users</h2>
+<div class="container py-4">
+  <h2 class="text-center mb-4">All Users</h2>
   <div class="row justify-content-center">
     <div class="col-md-6">
       <ul id="users" class="list-group"></ul>
@@ -27,8 +27,8 @@
 
 <script src="{{ url_for('static', filename='script.js') }}"></script>
 <script>
-  // Redirect if not logged in
-  if (!localStorage.getItem("user")) {
+  // Redirect to login if not logged in
+  if(!localStorage.getItem("user")){
     window.location = "/";
   }
 

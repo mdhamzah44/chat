@@ -9,18 +9,16 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
   <div class="container">
-    <a class="navbar-brand" href="#">Chat App</a>
+    <a class="navbar-brand" href="home">Chat App</a>
     <div class="ms-auto">
-      <button class="btn btn-outline-danger" id="logoutBtn">Logout</button>
+      <button class="btn btn-outline-danger btn-sm" id="logoutBtn">Logout</button>
     </div>
   </div>
 </nav>
 
-<div class="container-fluid d-flex flex-column h-100 py-3">
-  <h3 id="chatWith" class="text-center mb-3"></h3>
-
-  <div id="messages" class="flex-grow-1 overflow-auto border rounded p-3 mb-3 bg-white"></div>
-
+<div class="container-fluid d-flex flex-column flex-grow-1 py-2">
+  <h3 id="chatWith" class="text-center mb-2"></h3>
+  <div id="messages" class="flex-grow-1 overflow-auto border rounded p-3 bg-white mb-2"></div>
   <div class="input-group">
     <input id="messageInput" type="text" class="form-control" placeholder="Type a message">
     <button class="btn btn-primary" onclick="sendMessage()">Send</button>
@@ -29,8 +27,8 @@
 
 <script src="{{ url_for('static', filename='script.js') }}"></script>
 <script>
-  // Redirect if not logged in
-  if (!localStorage.getItem("user")) {
+  // Redirect to login if not logged in
+  if(!localStorage.getItem("user")){
     window.location = "/";
   }
 
@@ -43,8 +41,8 @@
 
   // Press Enter to send message
   const input = document.getElementById("messageInput");
-  input.addEventListener("keypress", function(event) {
-    if(event.key === "Enter") {
+  input.addEventListener("keypress", function(event){
+    if(event.key === "Enter"){
       event.preventDefault();
       sendMessage();
     }
