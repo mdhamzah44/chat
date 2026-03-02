@@ -1,5 +1,9 @@
 const API = "/api";
 
+
+
+let lastMessageCount = 0;
+
 function signup() {
 
     // Get input values
@@ -111,35 +115,52 @@ function loadMessages(){
   fetch(API + "/messages", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({user1: user, user2: chatWith})
+    body: JSON.stringify({ user1: user, user2: chatWith })
   })
   .then(res => res.json())
-  .then(messages => {
+  .then(data => {
 
-    const box = document.getElementById("messages");
-    box.innerHTML = "";
+    const messagesDiv = document.getElementById("messages");
 
-    messages.forEach(m => {
-      const div = document.createElement("div");
-      div.classList.add("message");
+    // If first load → render everything
+    if(lastMessageCount === 0){
+      messagesDiv.innerHTML = "";
+      data.forEach(msg => addMessageToUI(msg));
+      lastMessageCount = data.length;
+      scrollToBottom();
+      return;
+    }
 
-      if(m.sender === user){
-        div.classList.add("sent");
-      } else {
-        div.classList.add("received");
-      }
-
-      div.innerHTML = `${m.text}`;
-      box.appendChild(div);
-    });
-
-    // 🔥 Scroll AFTER rendering
-    setTimeout(() => {
-      box.scrollTop = box.scrollHeight;
-    }, 50);
+    // Only add new messages
+    if(data.length > lastMessageCount){
+      const newMessages = data.slice(lastMessageCount);
+      newMessages.forEach(msg => addMessageToUI(msg));
+      lastMessageCount = data.length;
+      scrollToBottom();
+    }
 
   });
 }
+
+function addMessageToUI(msg){
+  const div = document.createElement("div");
+  div.classList.add("message");
+
+  if(msg.sender === user){
+    div.classList.add("sent");
+  } else {
+    div.classList.add("received");
+  }
+
+  div.innerText = msg.text;
+  document.getElementById("messages").appendChild(div);
+}
+
+function scrollToBottom(){
+  const messages = document.getElementById("messages");
+  messages.scrollTop = messages.scrollHeight;
+}
+
 
   window.sendMessage = function(){
     const msg = document.getElementById("messageInput").value;
