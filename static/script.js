@@ -160,12 +160,32 @@ if (window.location.pathname.includes("chat")) {
 
   // 🔥 HEARTBEAT every 2 seconds
   setInterval(() => {
+  fetch(API + "/heartbeat", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ username: user })
+  });
+}, 2000);
+
+window.addEventListener("beforeunload", function () {
+  navigator.sendBeacon(API + "/heartbeat", JSON.stringify({
+    username: user,
+    offline: true
+  }));
+});
+
+document.addEventListener("visibilitychange", function () {
+  if (document.hidden) {
     fetch(API + "/heartbeat", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({ username: user })
+      body: JSON.stringify({
+        username: user,
+        offline: true
+      })
     });
-  }, 2000);
+  }
+});
 
   loadMessages();
   loadStatus();

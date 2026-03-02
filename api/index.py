@@ -78,6 +78,14 @@ def login():
 @app.route("/api/heartbeat", methods=["POST"])
 def heartbeat():
     data = request.json
+
+    if data.get("offline"):
+        users.update_one(
+            {"username": data["username"]},
+            {"$set": {"last_seen": datetime.utcnow() - timedelta(seconds=10)}}
+        )
+        return jsonify({"message": "Offline"})
+
     users.update_one(
         {"username": data["username"]},
         {"$set": {"last_seen": datetime.utcnow()}}
