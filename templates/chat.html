@@ -175,6 +175,152 @@ body{
   }
 }
 </style>
+
+<style>
+/* TOP NAVIGATION */
+.topbar{
+    background:#2874f0;
+    padding:12px 50px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    color:#fff;
+}
+
+.brand-name{
+    font-size:22px;
+    font-weight:bold;
+}
+
+.search-area{
+    width:45%;
+}
+
+.search-area input{
+    width:100%;
+    padding:8px 10px;
+    border-radius:2px;
+    border:none;
+}
+
+.menu-links{
+    display:flex;
+    gap:25px;
+    font-weight:500;
+}
+
+/* MAIN PRODUCT WRAPPER */
+.product-wrapper{
+    width:90%;
+    margin:25px auto;
+    background:#fff;
+    padding:25px;
+    display:flex;
+    gap:50px;
+}
+
+/* IMAGE COLUMN */
+.preview-box{
+    width:40%;
+}
+
+.preview-box img{
+    width:100%;
+    border:1px solid #ddd;
+}
+
+.action-buttons{
+    margin-top:20px;
+    display:flex;
+    gap:15px;
+}
+
+.primary-btn{
+    flex:1;
+    padding:12px;
+    font-size:15px;
+    font-weight:bold;
+    border:none;
+    cursor:pointer;
+    color:#fff;
+}
+
+.addcart-btn{
+    background:#ff9f00;
+}
+
+.buynow-btn{
+    background:#fb641b;
+}
+
+/* DETAILS COLUMN */
+.info-panel{
+    width:60%;
+}
+
+.product-heading{
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+.review-badge{
+    display:inline-block;
+    background:#388e3c;
+    color:#fff;
+    padding:3px 7px;
+    font-size:14px;
+    border-radius:3px;
+}
+
+.review-text{
+    margin-left:8px;
+    font-size:14px;
+}
+
+.price-section{
+    margin:18px 0;
+}
+
+.current-price{
+    font-size:26px;
+    font-weight:bold;
+}
+
+.mrp{
+    margin-left:10px;
+    text-decoration:line-through;
+    color:#888;
+    font-size:15px;
+}
+
+.offer{
+    margin-left:10px;
+    color:#388e3c;
+    font-weight:bold;
+}
+
+.detail-block{
+    margin-top:22px;
+}
+
+.detail-block h4{
+    margin-bottom:8px;
+    font-size:16px;
+}
+
+.detail-block ul{
+    padding-left:18px;
+    line-height:1.6;
+}
+
+.description-text{
+    margin-top:8px;
+    font-size:14px;
+    color:#444;
+}
+
+</style>
+
 </head>
 
 <body>
@@ -211,9 +357,82 @@ if(!localStorage.getItem("user")){
     <a href="#" id="backBtn">← Back to Chat</a>
   </div>
 
-  <div class="page2-content">
-    This is Page 2
-  </div>
+ <div class="topbar">
+    <div class="brand-name">Flipkart</div>
+
+    <div class="search-area">
+        <input type="text" placeholder="Search for products, brands and more">
+    </div>
+
+    <div class="menu-links">
+        <div>Login</div>
+        <div>Become a Seller</div>
+        <div>Cart</div>
+    </div>
+</div>
+
+<!-- PRODUCT SECTION -->
+<div class="product-wrapper">
+
+    <!-- LEFT IMAGE -->
+    <div class="preview-box">
+        <img src="https://rukminim2.flixcart.com/image/832/832/xif0q/dress/3/7/k/s-kradha-red-gown-kradha-original-imahxxxx.jpeg" alt="Red Dress">
+
+        <div class="action-buttons">
+            <button class="primary-btn addcart-btn">ADD TO CART</button>
+            <button class="primary-btn buynow-btn">BUY NOW</button>
+        </div>
+    </div>
+
+    <!-- RIGHT DETAILS -->
+    <div class="info-panel">
+
+        <div class="product-heading">
+            KRADHA Women Gown Red Midi/Calf Length Dress
+        </div>
+
+        <span class="review-badge">4.2 ★</span>
+        <span class="review-text">1,245 Ratings & 120 Reviews</span>
+
+        <div class="price-section">
+            <span class="current-price">₹599</span>
+            <span class="mrp">₹1,999</span>
+            <span class="offer">70% off</span>
+        </div>
+
+        <div class="detail-block">
+            <h4>Available Offers</h4>
+            <ul>
+                <li>10% Instant Discount on HDFC Bank Cards</li>
+                <li>Special Price Offer Available</li>
+                <li>No Cost EMI on selected cards</li>
+            </ul>
+        </div>
+
+        <div class="detail-block">
+            <h4>Product Details</h4>
+            <ul>
+                <li>Color: Red</li>
+                <li>Length: Midi/Calf Length</li>
+                <li>Fabric: Polyester Blend</li>
+                <li>Neck: Round Neck</li>
+                <li>Sleeve: Short Sleeve</li>
+                <li>Occasion: Casual & Party Wear</li>
+            </ul>
+        </div>
+
+        <div class="detail-block">
+            <h4>Description</h4>
+            <p class="description-text">
+                Stylish and elegant red midi dress designed for modern women.
+                Soft fabric ensures comfort while the flattering silhouette enhances your look.
+                Perfect for casual outings, parties, and special occasions.
+            </p>
+        </div>
+
+    </div>
+
+</div>
 </div>
 
 <script src="{{ url_for('static', filename='script.js') }}"></script>
