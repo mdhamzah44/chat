@@ -90,6 +90,11 @@ button:hover {
   opacity: 0.9;
 }
 
+/* ----------------- Navbar ----------------- */
+.navbar-brand {
+  font-weight: bold;
+}
+
 /* ----------------- Responsive tweaks ----------------- */
 @media (max-width: 576px) {
   .card {
@@ -97,6 +102,21 @@ button:hover {
   }
 
   #messages {
-    height: 60vh;
+    height: 50vh; /* shorter height for mobile */
+    padding: 10px;
+  }
+
+  #messageInput {
+    font-size: 0.9rem;
+  }
+
+  ul#users li {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+
+  nav .btn {
+    padding: 5px 10px;
+    font-size: 0.85rem;
   }
 }
