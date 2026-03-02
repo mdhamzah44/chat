@@ -1,15 +1,50 @@
 const API = "/api";
 
 function signup() {
+  // Get input values
+  const usernameValue = username.value.trim();
+  const passwordValue = password.value.trim();
+
+  // Get or create error message container
+  let errorDiv = document.getElementById("signupError");
+  if (!errorDiv) {
+    errorDiv = document.createElement("div");
+    errorDiv.id = "signupError";
+    errorDiv.className = "text-danger mb-2";
+    username.parentNode.insertBefore(errorDiv, username.nextSibling);
+  }
+
+  // Clear previous error
+  errorDiv.textContent = "";
+
+  // Validate inputs
+  if (!usernameValue || !passwordValue) {
+    errorDiv.textContent = "Username and password cannot be blank.";
+    return;
+  }
+
+  // Make API call
   fetch(API + "/signup", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
-      username: username.value,
-      password: password.value
+      username: usernameValue,
+      password: passwordValue
     })
-  }).then(res => res.json()).then(data => {
-    alert(data.message || data.error);
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.error) {
+      errorDiv.textContent = data.error;
+    } else {
+      errorDiv.textContent = "";
+      // Optionally redirect to login or home
+      window.location = "home";
+    }
+  })
+  .catch(err => {
+    errorDiv.textContent = "Something went wrong. Try again.";
+    console.error(err);
   });
 }
 
