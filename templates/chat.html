@@ -90,9 +90,10 @@ body{
 
 /* Messages */
 #messages{
-   min-height:0;
   flex:1;
-  overflow-y:scroll;
+  min-height:0;
+  max-height:360px;   /* 🔥 Limit to 6 messages */
+  overflow-y:auto;
   padding:10px;
   display:flex;
   flex-direction:column;
