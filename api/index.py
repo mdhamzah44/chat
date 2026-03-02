@@ -67,20 +67,21 @@ def login():
     else:
         return jsonify({"error": "Invalid credentials"}), 400
 
-# ---------------- USERS ----------------
+# -------------------- USERS --------------------
 @app.route("/api/users")
 def get_users():
     all_users = list(users.find({}, {"_id": 0, "password": 0}))
     return jsonify(all_users)
 
-# ---------------- CHAT ----------------
+
+# -------------------- CHAT --------------------
 @app.route("/api/send", methods=["POST"])
 def send_message():
     data = request.json
     messages.insert_one({
-        "sender": data.get("sender"),
-        "receiver": data.get("receiver"),
-        "text": data.get("text"),
+        "sender": data["sender"],
+        "receiver": data["receiver"],
+        "text": data["text"],
         "timestamp": datetime.utcnow()
     })
     return jsonify({"message": "Sent"})
@@ -89,8 +90,8 @@ def send_message():
 @app.route("/api/messages", methods=["POST"])
 def get_messages():
     data = request.json
-    user1 = data.get("user1")
-    user2 = data.get("user2")
+    user1 = data["user1"]
+    user2 = data["user2"]
 
     chat = list(messages.find({
         "$or": [
