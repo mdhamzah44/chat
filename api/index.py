@@ -9,11 +9,22 @@ app = Flask(__name__, template_folder="../templates", static_folder="../static")
 CORS(app)
 
 MONGO_URI = os.environ.get("MONGO_URI")
+
+if not MONGO_URI:
+    raise Exception("MONGO_URI not set in environment variables")
+
 client = MongoClient(MONGO_URI)
 db = client.chatapp
 
 users = db.users
 messages = db.messages
+
+
+app = Flask(
+    __name__,
+    template_folder="../templates",
+    static_folder="../static"
+)
 
 
 # ---------------- PAGES ----------------
@@ -106,3 +117,4 @@ def get_messages():
     }, {"_id": 0}).sort("timestamp", 1))
 
     return jsonify(chat)
+
